@@ -1,0 +1,193 @@
+#include <OpenGL/gl.h>
+
+
+
+#include <OpenGl/glu.h>
+
+
+
+#include <GLUT/glut.h>
+
+
+
+#include<iostream>
+
+
+
+using namespace std;
+
+
+
+float x1, x2, y ,y2;
+
+
+
+int sgn(float a)
+
+{
+
+  if(a==0)
+
+    return 0;
+
+  else if(a>0)
+
+    return 1;
+
+  else
+
+    return -1;
+
+}
+
+
+
+void line(float x1,float x2,float y1 ,float y2)
+
+{
+
+  float dx,dy,length;
+
+  dx=x2-x1;
+
+  dy=y2-y1;
+
+
+
+  if(abs(dx)>abs(dy))
+
+  {
+
+    length=abs(dx);
+
+  }
+
+  else
+
+  {
+
+    length=abs(dy);
+
+  }
+
+   float xin, yin;
+
+
+
+    xin = (x2 - x1) / length;
+
+    yin = (y2 - y1) / length;
+
+
+
+    float x, y;
+
+
+
+    x = x1 + 0.5 * sgn(xin);
+
+    y = y1 + 0.5 * sgn(yin);
+
+  int i=0;
+
+  while(i<=length)
+
+    {
+
+      cout << "\nx = " << x << " y = " << y;
+
+      glBegin(GL_POINTS);
+
+      glVertex2i(x,y);
+
+      glEnd();
+
+      x=x+xin;
+
+      y=y+yin;
+
+      i++;
+
+    }
+
+  glFlush();
+
+}
+
+void display()
+
+{
+
+  line(50,50,50,250);
+
+  line(50,180,50,50);
+
+  line(180,180,50,250);
+
+  line(50,180,250,250);
+
+  line(50,105,250,350);
+
+  line(105,180,350,250);
+
+  line(105,350,350,350);
+
+  line(350,400,350,250);
+
+  line(180,400,250,250);
+
+  line(400,400,250,50);
+
+  line(180,400,50,50);
+
+  line(70,70,50,150);
+
+  line(70,150,150,150);
+
+  line(150,150,150,50);
+
+ 
+
+  
+
+}
+
+
+
+void init(void)
+
+{
+
+    glClearColor(0, 0, 0, 0);
+
+    glColor3f(1.0, 0.0, 0.0);
+
+    gluOrtho2D(0, 500, 0, 400);
+
+    glClear(GL_COLOR_BUFFER_BIT);
+
+}
+
+
+
+int main(int argc, char** argv) {
+
+
+
+    glutInit(&argc, argv);
+
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+
+    glutInitWindowSize(500, 400);
+
+    glutCreateWindow("DDA Line");
+
+    init();
+
+    glutDisplayFunc(display);
+
+    glutMainLoop();
+
+    return 0;
+
+}
